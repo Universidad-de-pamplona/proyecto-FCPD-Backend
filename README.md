@@ -36,7 +36,7 @@ Crear una aplicación web que permita a los usuarios gestionar tareas de manera 
 Junior ivan silva
 Gregorio Cardona
 
-## universidad de pamplona 7to semestre ingenieria de sistemas
+## universidad de pamplona ingenieria de sistemas
 
 ## Fundamentos de computacion paralela y distribuida
 
