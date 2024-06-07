@@ -20,6 +20,7 @@ public class UserService implements UserInterface {
         this.userRepository = userRepository;
     }
 
+    @Override
     @Transactional(readOnly = true)
     public Iterable<User> findAll(){
         return userRepository.findAll();
