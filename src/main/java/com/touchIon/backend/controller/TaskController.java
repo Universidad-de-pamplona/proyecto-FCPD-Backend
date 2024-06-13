@@ -27,8 +27,7 @@ public class TaskController {
     @GetMapping
     public ResponseEntity<List<Task>> getAllTasks() {
         Iterable<Task> tasks = taskService.findAll();
-        List<Task> taskList = StreamSupport.stream(tasks.spliterator(), false)
-                .collect(Collectors.toList());
+        List<Task> taskList = StreamSupport.stream(tasks.spliterator(), false).toList();
         return new ResponseEntity<>(taskList, HttpStatus.OK);
     }
 

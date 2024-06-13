@@ -27,8 +27,7 @@ public class TeamController {
     @GetMapping
     public ResponseEntity<List<Team>> getAllTeams() {
         Iterable<Team> teams = teamService.findAll();
-        List<Team> teamList = StreamSupport.stream(teams.spliterator(), false)
-                .collect(Collectors.toList());
+        List<Team> teamList = StreamSupport.stream(teams.spliterator(), false).toList();
         return new ResponseEntity<>(teamList, HttpStatus.OK);
     }
 

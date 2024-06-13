@@ -27,8 +27,7 @@ public class ProjectController {
     @GetMapping
     public ResponseEntity<List<Project>> getAllProjects() {
         Iterable<Project> projects = projectService.findAll();
-        List<Project> projectList = StreamSupport.stream(projects.spliterator(), false)
-                .collect(Collectors.toList());
+        List<Project> projectList = StreamSupport.stream(projects.spliterator(), false).toList();
         return new ResponseEntity<>(projectList, HttpStatus.OK);
     }
 
