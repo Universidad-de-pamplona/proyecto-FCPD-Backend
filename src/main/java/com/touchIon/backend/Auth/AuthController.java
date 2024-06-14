@@ -1,33 +1,39 @@
-package com.touchIon.backend.controller;
+package com.touchIon.backend.Auth;
 
+
+import com.touchIon.backend.Auth.DTO.LoginRequest;
+import com.touchIon.backend.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api/auth")
 public class AuthController {
 
-    // Aquí debes inyectar AuthenticationManager, JwtUtil y UserDetailsServiceImpl
+   private final AuthService authService;
 
-    @PostMapping("/authenticate")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
-//        try {
-//            authenticationManager.authenticate(
-//                    new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
-//            );
-//        } catch (BadCredentialsException e) {
-//            throw new Exception("Incorrect username or password", e);
-//        }
+   @Autowired()
+   public AuthController(AuthService authService) {
+         this.authService = authService;
+   }
 
-//        final UserDetails userDetails = userDetailsService
-//                .loadUserByUsername(authenticationRequest.getUsername());
+   @PostMapping("/login")
+   ResponseEntity<AuthResponse> signIn(@RequestBody LoginRequest credentials){
+       if (Boolean.FALSE.equals(authService.checkCredentials(credentials))){
+           throw new BadCredentialsException("Invalid credentials");
+       }
+       return ResponseEntity.ok(authService.createToken(credentials));
+   }
 
-        final String jwt = jwtUtil.generateToken(userDetails);
-
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+    @PostMapping("/register")
+    ResponseEntity<User> signUp(@RequestBody User user){
+         User newUser = authService.register(user);
+         return ResponseEntity.ok(newUser);
     }
+
 }
