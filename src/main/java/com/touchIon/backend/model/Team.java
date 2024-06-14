@@ -1,5 +1,6 @@
 package com.touchIon.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -11,6 +12,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "teams")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @ToString
 @Getter
 @Setter
