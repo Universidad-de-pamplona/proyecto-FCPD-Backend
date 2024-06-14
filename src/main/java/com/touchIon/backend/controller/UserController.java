@@ -13,12 +13,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.StreamSupport;
-import java.util.logging.Logger;
+
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-    private Logger logger = Logger.getLogger(getClass().getName());
 
     private final UserService userService;
 
@@ -34,6 +33,12 @@ public class UserController {
         return new ResponseEntity<>(userList, HttpStatus.OK);
     }
 
+//    @GetMapping
+//    public ResponseEntity<List<User>> getAllUsers() {
+//    List<User> users = userService.findAllUsers();
+//    return new ResponseEntity<>(users, HttpStatus.OK);
+//    }
+
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable UUID id) {
         Optional<User> userOptional = userService.findById(id);
@@ -43,9 +48,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        logger.info("Creating user: " + user.getUsername());
         User createdUser = userService.save(user);
-        logger.info("User created successfully, user uuid: " + createdUser.getId());
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
@@ -58,7 +61,6 @@ public class UserController {
         User updatedUser = userService.save(user);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
