@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -28,7 +29,8 @@ public class Project {
     @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false)
+    @CreationTimestamp
+    @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
 
     @Column(nullable = false)
