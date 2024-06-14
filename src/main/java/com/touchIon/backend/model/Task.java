@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -21,19 +22,20 @@ public class Task {
     @GeneratedValue
     private UUID id;
 
-    @Column(nullable = false)
+    @Column()
     private String name;
 
-    @Column(nullable = false)
+    @Column()
     private String description;
 
     @Column(nullable = false)
     private String status;
 
-    @Column(nullable = false)
+    @CreationTimestamp
+    @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private LocalDateTime deadline;
 
     @ManyToOne(fetch = FetchType.LAZY)
